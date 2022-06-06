@@ -15,7 +15,7 @@ class WebDriver:
         self.driver = webdriver.Chrome(executable_path = "C:\\Users\\marina.hsieh\\Desktop\\chromedriver_win32\\chromedriver.exe")
         self.driver.implicitly_wait(30)
         self.driver.maximize_window()
-
+        
         self.location_data["name"] = "NA"
         self.location_data["rating"] = "NA"
         self.location_data["keyword"] = "NA"
@@ -106,18 +106,27 @@ class WebDriver:
         return(self.location_data)
 
 
-location = input()
+location = input("縣市+地理區+餐廳類型: ")
 
+# 打開google map
 driver = webdriver.Chrome(executable_path = "C:\\Users\\marina.hsieh\\Desktop\\chromedriver_win32\\chromedriver.exe")
 google_map_url = "https://www.google.com.tw/maps/@23.546162,120.6402133,8z?hl=zh-TW"
-driver.get(google_map_url)  # 打開google map
+driver.get(google_map_url)
+
+# 最大化視窗
 driver.implicitly_wait(30)
-driver.maximize_window()  # 最大化視窗
+driver.maximize_window()
+
+# 定位搜尋框
 driver.implicitly_wait(30)
-element = driver.find_element(By.CLASS_NAME, value = "tactile-searchbox-input")  # 定位搜尋框
+element = driver.find_element(By.CLASS_NAME, value="tactile-searchbox-input")
+
+# 傳入輸入字串
 driver.implicitly_wait(30)
-element.send_keys(location)  # 傳入輸入字串
-element.send_keys('\ue007')  # 按下enter
+element.send_keys(location)
+
+# 按下enter
+element.send_keys('\ue007')
 
 # 把20家餐廳的頁面展開
 time.sleep(10)
@@ -125,7 +134,7 @@ pyautogui.moveTo(430,646)
 for r in range(30):
     pyautogui.scroll(-500)
 
-# 取得20家餐廳的連結，有時候一頁會有超過20家，下一頁的迴圈再處理
+# 取得20家餐廳的連結
 url_list = []
 soup = Soup(driver.page_source,"lxml")
 for link in soup.find_all(class_ = 'hfpxzc'):
@@ -135,27 +144,23 @@ for link in soup.find_all(class_ = 'hfpxzc'):
 next_20_location_button = driver.find_element(By.XPATH, value='//*[@id="ppdPk-Ej1Yeb-LgbsSe-tJiF1e"]')
 next_20_location_button.click()
 
-# 把另外10家餐廳的頁面展開
+# 把另外20家餐廳的頁面展開
 time.sleep(5)
-for r in range(15):
+for r in range(30):
     pyautogui.scroll(-500)
 
-# 取得另外10家餐廳的連結
+# 取得另外20家餐廳的連結
 soup = Soup(driver.page_source,"lxml")
 for link in soup.find_all(class_ = 'hfpxzc'):
-    if len(url_list) < 30:
-        url_list.append(link.get('href'))
-    else:
-        break
+    url_list.append(link.get('href'))
 
 driver.quit()
 
 # 接下來跑迴圈
 final_result = []
-for r in range(2):
-    single_url = url_list[r]
-    x = WebDriver()
-    final_result.append(x.scrape(single_url))
+single_url = url_list[0]
+x = WebDriver()
+final_result.append(x.scrape(single_url))
 print(final_result)
 # final_result = []
 # for r in url_list:
