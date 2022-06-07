@@ -63,7 +63,7 @@ def goodwords_index(comment_list, goodwords_list):
 ratingdic = {}  #放每一家店對應到的積分
 rating_record = []  #記錄每家店的積分
 shop = []  # 爬蟲下來的大大list
-goodwords = ["好吃", "氣氛好", "服務好", "交通方便", "划算", "美味", "CP值高"]  # 我們自己寫的正面辭庫
+goodwords = ["好吃", "氣氛好", "服務好", "交通方便", "划算", "美味", "CP值高", "很棒", "很不錯", "喜歡"]  # 我們自己寫的正面辭庫
 answer = []  # 要印出來的答案
 keywords = []  #放keywords
 city = citybox.get()  #輸入縣市
@@ -87,18 +87,18 @@ if keyword3 != "無":
 
 for x in range(len(shop)):
     rate_index = 0
-    if open_or_not(shop[x][0]["opentime"], day, time) == True:
+    if open_or_not(shop[x]["opentime"], day, time) == True:
         
         if len(keywords) != 0:
             for y in range(len(keywords)):
-                rate_index += keyword_index(shop[x][0]["keyword"], keywords[y])
+                rate_index += keyword_index(shop[x]["keyword"], keywords[y])
         elif len(keywords) == 0:
             rate_index += 12
-        rate_index += score_index(shop[x][0]["rating"])
-        rate_index += goodwords_index(shop[x][0]["review"], goodwords)
-        ratingdic[str(shop[x][0]["name"])] = rate_index
+        rate_index += score_index(shop[x]["rating"])
+        rate_index += goodwords_index(shop[x]["review"], goodwords)
+        ratingdic[str(shop[x]["name"])] = rate_index
         rating_record.append(rate_index)
-    elif open_or_not(shop[x][0]["opentime"], day, time) == True:
+    elif open_or_not(shop[x]["opentime"], day, time) == True:
         continue
 
 rate_index_sorted = sorted(rating_record, reverse = True)  #由高分到低分排列
