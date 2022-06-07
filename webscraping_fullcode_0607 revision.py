@@ -21,52 +21,54 @@ class WebDriver:
         self.location_data["name"] = "NA"
         self.location_data["rating"] = "NA"
         self.location_data["keyword"] = "NA"
-        self.location_data["opentime"] = [["星期一", "NA", "NA", "NA"], ["星期二", "NA", "NA", "NA"], ["星期三", "NA", "NA", "NA"], ["星期四", "NA", "NA", "NA"], ["星期五", "NA", "NA", "NA"], ["星期六", "NA", "NA", "NA"], ["星期日", "NA", "NA", "NA"]]
+        self.location_data["opentime"] = [["星期一", "NA", "NA", "NA", "NA"], ["星期二", "NA", "NA", "NA", "NA"], ["星期三", "NA", "NA", "NA", "NA"], ["星期四", "NA", "NA", "NA", "NA"], ["星期五", "NA", "NA", "NA", "NA"], ["星期六", "NA", "NA", "NA", "NA"], ["星期日", "NA", "NA", "NA", "NA"]]
         self.location_data["review"] = []
 
 
     # exception: 找不到class
     def get_location_name_rating_keyword(self):
-        self.driver.implicitly_wait(30)
         try:
+            self.driver.implicitly_wait(10)
             name = self.driver.find_element(By.CLASS_NAME, value="DUwDvf.fontHeadlineLarge")
             self.location_data["name"] = name.text
         except:
-            self.location_data["name"] = "NA"
+            pass
 
         try:
+            self.driver.implicitly_wait(10)
             rating = self.driver.find_element(By.CLASS_NAME, value="F7nice.mmu3tf")
             self.location_data["rating"] = rating.text
         except:
-            self.location_data["rating"] = "NA"
+            pass
 
         try:
+            self.driver.implicitly_wait(10)
             keyword = self.driver.find_element(By.CLASS_NAME, value="WeS02d.fontBodyMedium")
             self.location_data["keyword"] = keyword.text
         except:
-            self.location_data["keyword"] = "NA"
+            pass
 
 
     def scroll_down_for_location_opentime(self):
         self.driver.implicitly_wait(30)
-        pyautogui.moveTo(430,700)
+        pyautogui.moveTo(430,850)
         pyautogui.scroll(-500)
 
     
     # exception: 沒有營業時間的選單
     def tap_open_location_opentime(self):
         try:
-            self.driver.implicitly_wait(30)
+            self.driver.implicitly_wait(10)
             timebutton = self.driver.find_element(By.CLASS_NAME, value="ZDu9vd")
             timebutton.click()
         except:
             pass
     
-    # 全天休息: [close, NA, NA, NA]
+    # 全天休息: [星期幾, close, NA, NA]
     # 中午沒休息: [星期幾, 營業時間, 打烊時間, NA, NA]
     # 中午有休息: [星期幾, 第一次營業時間, 第二次營業時間, 第一次打烊時間, 第二次打烊時間]
     # 24小時營業: [星期幾, 0000, 2400, NA, NA]
-    # exception: 沒有營業時間的頁面
+    # exception: 沒有營業時間的頁面 [NA, NA, NA, NA]
     def get_location_opentime(self):
         try:
             soup = Soup(self.driver.page_source,"lxml")
@@ -92,150 +94,149 @@ class WebDriver:
                 if len(all_time_tidy[Monday_index]) == 28:
                     Monday = ''
                     Monday = all_time_tidy[Monday_index][:11]
-                    self.location_data["opentime"][0][0] = Monday[:2] + Monday[3:5]
-                    self.location_data["opentime"][0][1] = Monday[6:8] + Monday[9:11]
+                    self.location_data["opentime"][0][1] = Monday[:2] + Monday[3:5]
+                    self.location_data["opentime"][0][2] = Monday[6:8] + Monday[9:11]
                 elif len(all_time_tidy[Monday_index]) == 39:
                     Monday1 = ''
                     Monday1 = all_time_tidy[Monday_index][:11]
-                    self.location_data["opentime"][0][0] = Monday1[:2] + Monday1[3:5]
-                    self.location_data["opentime"][0][2] = Monday1[6:8] + Monday1[9:11]
+                    self.location_data["opentime"][0][1] = Monday1[:2] + Monday1[3:5]
+                    self.location_data["opentime"][0][3] = Monday1[6:8] + Monday1[9:11]
                     Monday2 = ''
                     Monday2 = all_time_tidy[Monday_index][11:22]
-                    self.location_data["opentime"][0][1] = Monday2[:2] + Monday2[3:5]
-                    self.location_data["opentime"][0][3] = Monday2[6:8] + Monday2[9:11]
+                    self.location_data["opentime"][0][2] = Monday2[:2] + Monday2[3:5]
+                    self.location_data["opentime"][0][4] = Monday2[6:8] + Monday2[9:11]
                 else:
-                    self.location_data["opentime"][0][0] = "close"
+                    self.location_data["opentime"][0][1] = "close"
             else:
-                self.location_data["opentime"][0][0] = "0000"
-                self.location_data["opentime"][0][1] = "2500"
+                self.location_data["opentime"][0][1] = "0000"
+                self.location_data["opentime"][0][2] = "2500"
 
             if all_time_tidy[Tuesday_index][:7] != "24 小時營業":
                 if len(all_time_tidy[Tuesday_index]) == 28:
                     Tuesday = ''
                     Tuesday = all_time_tidy[Tuesday_index][:11]
-                    self.location_data["opentime"][1][0] = Tuesday[:2] + Tuesday[3:5]
-                    self.location_data["opentime"][1][1] = Tuesday[6:8] + Tuesday[9:11]
+                    self.location_data["opentime"][1][1] = Tuesday[:2] + Tuesday[3:5]
+                    self.location_data["opentime"][1][2] = Tuesday[6:8] + Tuesday[9:11]
                 elif len(all_time_tidy[Tuesday_index]) == 39:
                     Tuesday1 = ''
                     Tuesday1 = all_time_tidy[Tuesday_index][:11]
-                    self.location_data["opentime"][1][0] = Tuesday1[:2] + Tuesday1[3:5]
-                    self.location_data["opentime"][1][2] = Tuesday1[6:8] + Tuesday1[9:11]
+                    self.location_data["opentime"][1][1] = Tuesday1[:2] + Tuesday1[3:5]
+                    self.location_data["opentime"][1][3] = Tuesday1[6:8] + Tuesday1[9:11]
                     Tuesday2 = ''
                     Tuesday2 = all_time_tidy[Tuesday_index][11:22]
-                    self.location_data["opentime"][1][1] = Tuesday2[:2] + Tuesday2[3:5]
-                    self.location_data["opentime"][1][3] = Tuesday2[6:8] + Tuesday2[9:11]
+                    self.location_data["opentime"][1][2] = Tuesday2[:2] + Tuesday2[3:5]
+                    self.location_data["opentime"][1][4] = Tuesday2[6:8] + Tuesday2[9:11]
                 else:
-                    self.location_data["opentime"][1][0] = "close"
+                    self.location_data["opentime"][1][1] = "close"
             else:
-                self.location_data["opentime"][1][0] = "0000"
-                self.location_data["opentime"][1][1] = "2500"
+                self.location_data["opentime"][1][1] = "0000"
+                self.location_data["opentime"][1][2] = "2500"
 
             if all_time_tidy[Wednesday_index][:7] != "24 小時營業":
                 if len(all_time_tidy[Wednesday_index]) == 28:
                     Wednesday = ''
                     Wednesday = all_time_tidy[Wednesday_index][:11]
-                    self.location_data["opentime"][2][0] = Wednesday[:2] + Wednesday[3:5]
-                    self.location_data["opentime"][2][1] = Wednesday[6:8] + Wednesday[9:11]
+                    self.location_data["opentime"][2][1] = Wednesday[:2] + Wednesday[3:5]
+                    self.location_data["opentime"][2][2] = Wednesday[6:8] + Wednesday[9:11]
                 elif len(all_time_tidy[Wednesday_index]) == 39:
                     Wednesday1 = ''
                     Wednesday1 = all_time_tidy[Wednesday_index][:11]
-                    self.location_data["opentime"][2][0] = Wednesday1[:2] + Wednesday1[3:5]
-                    self.location_data["opentime"][2][2] = Wednesday1[6:8] + Wednesday1[9:11]
+                    self.location_data["opentime"][2][1] = Wednesday1[:2] + Wednesday1[3:5]
+                    self.location_data["opentime"][2][3] = Wednesday1[6:8] + Wednesday1[9:11]
                     Wednesday2 = ''
                     Wednesday2 = all_time_tidy[Wednesday_index][11:22]
-                    self.location_data["opentime"][2][1] = Wednesday2[:2] + Wednesday2[3:5]
-                    self.location_data["opentime"][2][3] = Wednesday2[6:8] + Wednesday2[9:11]
+                    self.location_data["opentime"][2][2] = Wednesday2[:2] + Wednesday2[3:5]
+                    self.location_data["opentime"][2][4] = Wednesday2[6:8] + Wednesday2[9:11]
                 else:
-                    self.location_data["opentime"][2][0] = "close"
+                    self.location_data["opentime"][2][1] = "close"
             else:
-                self.location_data["opentime"][2][0] = "0000"
-                self.location_data["opentime"][2][1] = "2500"
+                self.location_data["opentime"][2][1] = "0000"
+                self.location_data["opentime"][2][2] = "2500"
 
             if all_time_tidy[Thursday_index][:7] != "24 小時營業":
                 if len(all_time_tidy[Thursday_index]) == 28:
                     Thursday = ''
                     Thursday = all_time_tidy[Thursday_index][:11]
-                    self.location_data["opentime"][3][0] = Thursday[:2] + Thursday[3:5]
-                    self.location_data["opentime"][3][1] = Thursday[6:8] + Thursday[9:11]
+                    self.location_data["opentime"][3][1] = Thursday[:2] + Thursday[3:5]
+                    self.location_data["opentime"][3][2] = Thursday[6:8] + Thursday[9:11]
                 elif len(all_time_tidy[Thursday_index]) == 39:
                     Thursday1 = ''
                     Thursday1 = all_time_tidy[Thursday_index][:11]
-                    self.location_data["opentime"][3][0] = Thursday1[:2] + Thursday1[3:5]
-                    self.location_data["opentime"][3][2] = Thursday1[6:8] + Thursday1[9:11]
+                    self.location_data["opentime"][3][1] = Thursday1[:2] + Thursday1[3:5]
+                    self.location_data["opentime"][3][3] = Thursday1[6:8] + Thursday1[9:11]
                     Thursday2 = ''
                     Thursday2 = all_time_tidy[Thursday_index][11:22]
-                    self.location_data["opentime"][3][1] = Thursday2[:2] + Thursday2[3:5]
-                    self.location_data["opentime"][3][3] = Thursday2[6:8] + Thursday2[9:11]
+                    self.location_data["opentime"][3][2] = Thursday2[:2] + Thursday2[3:5]
+                    self.location_data["opentime"][3][4] = Thursday2[6:8] + Thursday2[9:11]
                 else:
-                    self.location_data["opentime"][3][0] = "close"
+                    self.location_data["opentime"][3][1] = "close"
             else:
-                self.location_data["opentime"][3][0] = "0000"
-                self.location_data["opentime"][3][1] = "2500"
+                self.location_data["opentime"][3][1] = "0000"
+                self.location_data["opentime"][3][2] = "2500"
 
             if all_time_tidy[Friday_index][:7] != "24 小時營業":
                 if len(all_time_tidy[Friday_index]) == 28:
                     Friday = ''
                     Friday = all_time_tidy[Friday_index][:11]
-                    self.location_data["opentime"][4][0] = Friday[:2] + Friday[3:5]
-                    self.location_data["opentime"][4][1] = Friday[6:8] + Friday[9:11]
+                    self.location_data["opentime"][4][1] = Friday[:2] + Friday[3:5]
+                    self.location_data["opentime"][4][2] = Friday[6:8] + Friday[9:11]
                 elif len(all_time_tidy[Friday_index]) == 39:
                     Friday1 = ''
                     Friday1 = all_time_tidy[Friday_index][:11]
-                    self.location_data["opentime"][4][0] = Friday1[:2] + Friday1[3:5]
-                    self.location_data["opentime"][4][2] = Friday1[6:8] + Friday1[9:11]
+                    self.location_data["opentime"][4][1] = Friday1[:2] + Friday1[3:5]
+                    self.location_data["opentime"][4][3] = Friday1[6:8] + Friday1[9:11]
                     Friday2 = ''
                     Friday2 = all_time_tidy[Friday_index][11:22]
-                    self.location_data["opentime"][4][1] = Friday2[:2] + Friday2[3:5]
-                    self.location_data["opentime"][4][3] = Friday2[6:8] + Friday2[9:11]
+                    self.location_data["opentime"][4][2] = Friday2[:2] + Friday2[3:5]
+                    self.location_data["opentime"][4][4] = Friday2[6:8] + Friday2[9:11]
                 else:
-                    self.location_data["opentime"][4][0] = "close"
+                    self.location_data["opentime"][4][1] = "close"
             else:
-                self.location_data["opentime"][4][0] = "0000"
-                self.location_data["opentime"][4][1] = "2500"
+                self.location_data["opentime"][4][1] = "0000"
+                self.location_data["opentime"][4][2] = "2500"
 
             if all_time_tidy[Saturday_index][:7] != "24 小時營業":
                 if len(all_time_tidy[Saturday_index]) == 28:
                     Saturday = ''
                     Saturday = all_time_tidy[Saturday_index][:11]
-                    self.location_data["opentime"][5][0] = Saturday[:2] + Saturday[3:5]
-                    self.location_data["opentime"][5][1] = Saturday[6:8] + Saturday[9:11]
+                    self.location_data["opentime"][5][1] = Saturday[:2] + Saturday[3:5]
+                    self.location_data["opentime"][5][2] = Saturday[6:8] + Saturday[9:11]
                 elif len(all_time_tidy[Saturday_index]) == 39:
                     Saturday1 = ''
                     Saturday1 = all_time_tidy[Saturday_index][:11]
-                    self.location_data["opentime"][5][0] = Saturday1[:2] + Saturday1[3:5]
-                    self.location_data["opentime"][5][2] = Saturday1[6:8] + Saturday1[9:11]
+                    self.location_data["opentime"][5][1] = Saturday1[:2] + Saturday1[3:5]
+                    self.location_data["opentime"][5][3] = Saturday1[6:8] + Saturday1[9:11]
                     Saturday2 = ''
                     Saturday2 = all_time_tidy[Saturday_index][11:22]
-                    self.location_data["opentime"][5][1] = Saturday2[:2] + Saturday2[3:5]
-                    self.location_data["opentime"][5][3] = Saturday2[6:8] + Saturday2[9:11]
+                    self.location_data["opentime"][5][2] = Saturday2[:2] + Saturday2[3:5]
+                    self.location_data["opentime"][5][4] = Saturday2[6:8] + Saturday2[9:11]
                 else:
-                    self.location_data["opentime"][5][0] = "close"
+                    self.location_data["opentime"][5][1] = "close"
             else:
-                self.location_data["opentime"][5][0] = "0000"
-                self.location_data["opentime"][5][1] = "2500"
+                self.location_data["opentime"][5][1] = "0000"
+                self.location_data["opentime"][5][2] = "2500"
             
             if all_time_tidy[Sunday_index][:7] != "24 小時營業":
                 if len(all_time_tidy[Sunday_index]) == 28:
                     Sunday = all_time_tidy[Sunday_index][:11]
-                    self.location_data["opentime"][6][0] = Sunday[:2] + Sunday[3:5]
-                    self.location_data["opentime"][6][1] = Sunday[6:8] + Sunday[9:11]
+                    self.location_data["opentime"][6][1] = Sunday[:2] + Sunday[3:5]
+                    self.location_data["opentime"][6][2] = Sunday[6:8] + Sunday[9:11]
                 elif len(all_time_tidy[Sunday_index]) == 39:
                     Sunday1 = all_time_tidy[Sunday_index][:11]
-                    self.location_data["opentime"][6][0] = Sunday1[:2] + Sunday1[3:5]
-                    self.location_data["opentime"][6][2] = Sunday1[6:8] + Sunday1[9:11]
-                    Sunday2 = all_time_tidy[Sunday_index][11:22]
-                    self.location_data["opentime"][6][1] = Sunday2[:2] + Sunday2[3:5]
+                    self.location_data["opentime"][6][1] = Sunday1[:2] + Sunday1[3:5]
                     self.location_data["opentime"][6][3] = Sunday1[6:8] + Sunday1[9:11]
+                    Sunday2 = all_time_tidy[Sunday_index][11:22]
+                    self.location_data["opentime"][6][2] = Sunday2[:2] + Sunday2[3:5]
+                    self.location_data["opentime"][6][4] = Sunday2[6:8] + Sunday2[9:11]
                 else:
-                    self.location_data["opentime"][6][0] = "close"
+                    self.location_data["opentime"][6][1] = "close"
             else:
-                self.location_data["opentime"][6][0] = "0000"
-                self.location_data["opentime"][6][1] = "2500"
+                self.location_data["opentime"][6][1] = "0000"
+                self.location_data["opentime"][6][2] = "2500"
             
         except:
             for r in range(7):
                 self.location_data["opentime"][r][0] = "NA"
-                self.location_data["opentime"][r][1] = "NA"
 
 
     def scroll_back_to_top(self):
@@ -245,7 +246,7 @@ class WebDriver:
     # exception: 沒有評論的選單
     def tap_open_location_comment(self):
         try:
-            self.driver.implicitly_wait(30)
+            self.driver.implicitly_wait(10)
             commentbutton = self.driver.find_element(By.CLASS_NAME, value="DkEaL")
             commentbutton.click()
         except:
@@ -253,7 +254,7 @@ class WebDriver:
 
 
     def scroll_down_for_location_comment(self):
-        for r in range(200):
+        for r in range(100):
             pyautogui.scroll(-500)
         self.driver.implicitly_wait(300)
 
@@ -266,8 +267,10 @@ class WebDriver:
             all_reviews_tidy = []
             for review in all_reviews:
                 all_reviews_tidy.append(review.text.strip())
+            # range可以調整要擷取的留言數目
+            print(len(all_reviews_tidy))
             for r in range(40):
-                if len(all_reviews_tidy) >= r:
+                if len(all_reviews_tidy) >= r + 1:
                     self.location_data["review"].append(all_reviews_tidy[r])
                 else:
                     self.location_data["review"].append("NA")
@@ -304,7 +307,7 @@ element.send_keys('\ue007')  # 按下enter
 
 # 把20家餐廳的頁面展開
 time.sleep(10)
-pyautogui.moveTo(430,720)
+pyautogui.moveTo(430,850)
 for r in range(30):
     pyautogui.scroll(-500)
 
@@ -314,29 +317,50 @@ soup = Soup(driver.page_source,"lxml")
 for link in soup.find_all(class_ = 'hfpxzc'):
     url_list.append(link.get('href'))
 
-# 按下按鍵，到另外20家餐廳的頁面
-next_20_location_button = driver.find_element(By.XPATH, value='//*[@id="ppdPk-Ej1Yeb-LgbsSe-tJiF1e"]')
-next_20_location_button.click()
+# exception: 沒有下一個頁面
+try:
+    # 按下按鍵，到另外20家餐廳的頁面
+    next_20_location_button = driver.find_element(By.XPATH, value='//*[@id="ppdPk-Ej1Yeb-LgbsSe-tJiF1e"]')
+    next_20_location_button.click()
 
-# 把另外10家餐廳的頁面展開
-time.sleep(5)
-for r in range(15):
-    pyautogui.scroll(-500)
+    # 把另外10家餐廳的頁面展開
+    time.sleep(5)
+    for r in range(15):
+        pyautogui.scroll(-500)
 
-# 取得另外10家餐廳的連結
-soup = Soup(driver.page_source,"lxml")
-for link in soup.find_all(class_ = 'hfpxzc'):
-    if len(url_list) < 30:
-        url_list.append(link.get('href'))
-    else:
-        break
+    # 取得另外10家餐廳的連結
+    soup = Soup(driver.page_source,"lxml")
+    for link in soup.find_all(class_ = 'hfpxzc'):
+        if len(url_list) < 30:
+            url_list.append(link.get('href'))
+        else:
+            break
+except:
+    pass
 
 driver.quit()
 
-# 跑迴圈，使用上方的函數爬每個店家
+# 跑迴圈，使用WebDriver()爬每個店家
+# range可以調整要記錄的店家數目
+# final_result = []
+# for r in range(min(3, len(url_list))):
+    # single_url = url_list[r]
+    # x = WebDriver()
+    # final_result.append(copy.deepcopy(x.scrape(single_url)))
+# print(final_result)
+
+# 單一店家測試
 final_result = []
-for r in range(2):
-    single_url = url_list[r]
-    x = WebDriver()
-    final_result.append(copy.deepcopy(x.scrape(single_url)))
+single_url = "https://www.google.com.tw/maps/place/%E7%A6%8F%E5%88%A9%E6%97%BA/@25.0588848,121.4840998,17z/data=!3m1!4b1!4m5!3m4!1s0x3442a8e3ca854ebd:0x2d5e3ebd2a7118dc!8m2!3d25.05888!4d121.488327?hl=zh-TW"
+x = WebDriver()
+final_result.append(x.scrape(single_url))
 print(final_result)
+
+# 已測試項目:
+# 1. 某個地點的餐廳頁面只有一頁
+# 2. 店家連結不滿30個
+# 3. 沒有keyword
+# 4. 各種營業時間
+# 5. 沒有營業時間的選單、頁面
+# 6. 沒有評論的選單、頁面
+# 7. 留言不足40則
