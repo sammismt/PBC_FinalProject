@@ -71,21 +71,7 @@ keyword2_box.current(0)
 keyword3_box = ttk.Combobox(app, values=['無', '外送', '外帶', '內用', '啤酒', '早餐', '午餐', '晚餐', '洗手間', '適合兒童', '氣氛悠閒', '環境舒適', '適合團體', '接受訂位', '信用卡', '免下車服務', '員工會接受體溫測量', '需要測量體溫', '提供素食料理', '甜點', '提供免費WIFI', '無障礙座位', '無障礙入口', '無障礙停車場'], state="readonly", width=10) 
 keyword3_box.grid(column=3, row=7, ipadx=5, pady=5, sticky=tk.W+tk.N)
 keyword3_box.current(0)
-'''
-def find_restaurant():
-    city = city_box.get()
-    destination = destination_entry.get()
-    restnum = int(restnum_box.get())
-    restkind = restkind_box.get()
-    foodkind = foodkind_entry.get()
-    day = day_box.get()
-    time = int(hr_box.get()+min_box.get())
-    keyword1 = keyword1_box.get()
-    keyword2 = keyword2_box.get()
-    keyword3 = keyword3_box.get()
-    result = '您的最佳選擇：{}'.format(answer_str)
-    result_label.configure(text=result)
-'''
+
 def createNewWindow():
     newWindow = tk.Toplevel(app)
     result = '您的最佳選擇：{}'.format(answer_str)
