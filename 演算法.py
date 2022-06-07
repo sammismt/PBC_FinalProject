@@ -63,7 +63,7 @@ def goodwords_index(comment_list, goodwords_list):
 ratingdic = {}  #放每一家店對應到的積分
 rating_record = []  #記錄每家店的積分
 shop = []  # 爬蟲下來的大大list
-goodwords = []  # 我們自己寫的正面辭庫
+goodwords = ["好吃", "氣氛好", "服務好", "交通方便", "划算", "美味", "CP值高"]  # 我們自己寫的正面辭庫
 answer = []  # 要印出來的答案
 keywords = []  #放keywords
 city = citybox.get()  #輸入縣市
