@@ -135,7 +135,10 @@ def keyword_index(list_keyword, find_keyword):
 
 def score_index(score):
     # 算評分分數:分數乘以2
-    score = int(score) * 2
+    if score == "NA":
+        score = 0
+    else:
+        score = int(score) * 2
     return score
 
 def goodwords_index(comment_list, goodwords_list):
@@ -180,7 +183,7 @@ if keyword3 != "無":
 
 for x in range(len(shop)):
     rate_index = 0
-    if open_or_not(final_result[x]["opentime"], day, time) == True:
+    if open_or_not(final_result[x]["opentime"], day, time) == True and final_result[x]["name"] != "NA":
         
         if len(keywords) != 0:
             for y in range(len(keywords)):
