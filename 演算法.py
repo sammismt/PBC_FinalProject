@@ -4,12 +4,24 @@ def open_or_not(opentime_list, day, time):
     # 判斷該時段是否有營業 (營業時間的list, 想要去的時間的list)
     for x in range(7):
         
-        if opentime_list[x][0] == day:
+        if opentime_list[x][0] == day and opentime_list[x][1] != "close":
             # 星期相同
-            if int(opentime_list[x][1]) < time < int(opentime_list[x][2]):
-                return True
-            else:
-                return False
+            if opentime_list[x][3] == opentime_list[x][4] == "NA":
+                # 中午沒有休息:星期幾，營業時間，打烊時間，NA，NA
+                if int(opentime_list[x][1]) < time < int(opentime_list[x][2]):
+                    return True
+                else:
+                    return False
+            elif opentime_list[x][3] != "NA" and opentime_list[x][4] != "NA":
+                # 中午有休息:星期幾，第一次營業時間，第二次營業時間，第一次打烊時間，第二次打烊時間
+                if int(opentime_list[x][1]) < time < int(opentime_list[x][3]) or int(opentime_list[x][2]) < time < int(opentime_list[x][4]):
+                    return True
+                else:
+                    return False
+        elif opentime_list[x][0] == day and opentime_list[x][1] == "close":
+            return False
+        else:
+            continue
 
 def keyword_index(list_keyword, find_keyword):
     # 算關鍵字分數 (爬蟲爬到的list, 他想要找的關鍵字(最多三個!))
@@ -71,22 +83,22 @@ if keyword2 != "無":
 if keyword3 != "無":
     keywords.append(keyword3)
 
-# [店名1, 評分1, [google 提供關鍵字1],[[星期, 開業, 歇業],....], [評論1]]
+# ［{"name":"店家一","rating":"店家一評分","keyword":"店家一關鍵字","opentime":[], "review":["評論1", "評論2"..., "評論40"] } ... ]
 
 for x in range(len(shop)):
     rate_index = 0
-    if open_or_not(shop[x][3], day, time) == True:
+    if open_or_not(shop[x][0]["opentime"], day, time) == True:
         
         if len(keywords) != 0:
             for y in range(len(keywords)):
-                rate_index += keyword_index(shop[x][2], keywords[y])
+                rate_index += keyword_index(shop[x][0]["keyword"], keywords[y])
         elif len(keywords) == 0:
             rate_index += 12
-        rate_index += score_index(shop[x][1])
-        rate_index += goodwords_index(shop[x][4], goodwords)
-        ratingdic[str(shop[x][0])] = rate_index
+        rate_index += score_index(shop[x][0]["rating"])
+        rate_index += goodwords_index(shop[x][0]["review"], goodwords)
+        ratingdic[str(shop[x][0]["name"])] = rate_index
         rating_record.append(rate_index)
-    elif open_or_not(shop[x][3], day, time) == True:
+    elif open_or_not(shop[x][0]["opentime"], day, time) == True:
         continue
 
 rate_index_sorted = sorted(rating_record, reverse = True)  #由高分到低分排列
@@ -94,7 +106,7 @@ rate_index_sorted = sorted(rating_record, reverse = True)  #由高分到低分�
 
 for x in range(restnum):
     add_index = rating_record.index(rate_index_sorted[y])
-    answer.append(shop[add_index][0])
+    answer.append(shop[add_index][0]["name"])
     rating_record[add_index] = 0
 
 for x in range(restnum - 1):
