@@ -92,8 +92,6 @@ def createNewWindow():
     result_label = tk.Label(newWindow, text = result)
     result_label.pack()
 
-answer = ['1','2','3']
-restnum = 3
 answer_str = ''
 for i in range(restnum - 1):
     answer_str += answer[i]
