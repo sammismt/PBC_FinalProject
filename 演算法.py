@@ -105,8 +105,8 @@ rate_index_sorted = sorted(rating_record, reverse = True)  #由高分到低分�
 
 
 for x in range(restnum):
-    add_index = rating_record.index(rate_index_sorted[y])
-    answer.append(shop[add_index][0]["name"])
+    add_index = rating_record.index(rate_index_sorted[x])
+    answer.append(shop[add_index]["name"])
     rating_record[add_index] = 0
 
 for x in range(restnum - 1):
