@@ -183,29 +183,43 @@ if keyword3 != "無":
 
 # ［{"name":"店家一","rating":"店家一評分","keyword":"店家一關鍵字","opentime":[], "review":["評論1", "評論2"..., "評論40"] } ... ]
 
-for x in range(len(shop)):
-    rate_index = 0
-    if open_or_not(final_result[x]["opentime"], day, time) == True and final_result[x]["name"] != "NA":
-        
-        if len(keywords) != 0:
-            for y in range(len(keywords)):
-                rate_index += keyword_index(final_result[x]["keyword"], keywords[y])
-        elif len(keywords) == 0:
-            rate_index += 12
-        rate_index += score_index(final_result[x]["rating"])
-        rate_index += goodwords_index(final_result[x]["review"], goodwords)
-        ratingdic[str(final_result[x]["name"])] = rate_index
-        rating_record.append(rate_index)
-    elif open_or_not(final_result[x]["opentime"], day, time) == True:
-        continue
-
-rate_index_sorted = sorted(rating_record, reverse = True)  #由高分到低分排列
 
 
-for x in range(restnum):
-    add_index = rating_record.index(rate_index_sorted[])
-    answer.append(final_result[add_index]["name"])
-    rating_record[add_index] = 0
+def algorithm(final_result):
+
+    ratingdic = {}  #放每一家店對應到的積分
+    rating_record = []  #記錄每家店的積分
+    shop = []  # 爬蟲下來的大大list
+    goodwords = []  # 我們自己寫的正面辭庫
+    answer = []  # 要印出來的答案
+    keywords = []  #放keywords
+    
+    for x in range(len(final_result)):
+        rate_index = 0
+        if open_or_not(final_result[x]["opentime"], day, time) == True and final_result[x]["name"] != "NA":
+            
+            if len(keywords) != 0:
+                for y in range(len(keywords)):
+                    rate_index += keyword_index(final_result[x]["keyword"], keywords[y])
+            elif len(keywords) == 0:
+                rate_index += 12
+            rate_index += score_index(final_result[x]["rating"])
+            rate_index += goodwords_index(final_result[x]["review"], goodwords)
+            ratingdic[str(final_result[x]["name"])] = rate_index
+            rating_record.append(rate_index)
+        elif open_or_not(final_result[x]["opentime"], day, time) == True:
+            continue
+    
+    rate_index_sorted = sorted(rating_record, reverse = True)
+
+    for x in range(restnum):
+        add_index = rating_record.index(rate_index_sorted[y])
+        answer.append(shop[add_index][0]["name"])
+        rating_record[add_index] = 0
+    
+    return answer
+
+
     
 answer_str = ''
 for i in range(restnum - 1):
