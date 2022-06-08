@@ -72,6 +72,17 @@ keyword3_box = ttk.Combobox(app, values=['無', '外送', '外帶', '內用', '�
 keyword3_box.grid(column=3, row=7, ipadx=5, pady=5, sticky=tk.W+tk.N)
 keyword3_box.current(0)
 
+city = citybox.get()  #輸入縣市
+destination = entrydestination.get()  #輸入更小範圍
+restnum = int(restnumbox.get())  #輸入想要的店家數量
+restkind = restkindbox.get()  #輸入餐廳種類 (咖啡廳、餐廳...)
+foodkind = entryfoodkind.get()  #輸入食物種類
+day = daybox.get()  #輸入要去的星期
+time = timebox.get()  #輸入要去的時間點 格式:1830
+keyword1 = keyword1box.get()  #輸入關鍵字
+keyword2 = keyword2box.get()
+keyword3 = keyword3box.get()
+
 def createNewWindow():
     newWindow = tk.Toplevel(app)
     result = '您的最佳選擇：{}'.format(answer_str)
@@ -162,6 +173,7 @@ final_result = []  # 爬蟲下來的大大list
 goodwords = ["好吃", "氣氛好", "服務好", "交通方便", "划算", "美味", "CP值高", "很不錯", "很讚", "喜歡", "很好"]  # 我們自己寫的正面辭庫
 answer = []  # 要印出來的答案
 keywords = []  #放keywords
+'''
 city = citybox.get()  #輸入縣市
 destination = entrydestination.get()  #輸入更小範圍
 restnum = int(restnumbox.get())  #輸入想要的店家數量
@@ -172,6 +184,7 @@ time = timebox.get()  #輸入要去的時間點 格式:1830
 keyword1 = keyword1box.get()  #輸入關鍵字
 keyword2 = keyword2box.get()
 keyword3 = keyword3box.get()
+'''
 if keyword1 != "無":
     keywords.append(keyword1)
 if keyword2 != "無":
