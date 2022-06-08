@@ -45,10 +45,6 @@ day_box.current(0)
 time_label = tk.Label(app,text = "請選擇您想要搜尋的時間（24小時制）", fg = '#8592A2', width=30, anchor = 'w')
 time_label.grid(column=0, row=6, ipadx=5, pady=5, sticky=tk.W+tk.N)
 
-time_box = ttk.Combobox(app, values=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], state="readonly", width=10) 
-time_box.grid(column=1, row=6, ipadx=5, pady=5, sticky=tk.W+tk.N)
-time_box.current(0)
-
 hr_box = ttk.Combobox(app, values=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], state="readonly", width=10) 
 hr_box.grid(column=1, row=6, ipadx=5, pady=5, sticky=tk.W+tk.N)
 hr_box.current(0)
@@ -72,13 +68,13 @@ keyword3_box = ttk.Combobox(app, values=['無', '外送', '外帶', '內用', '�
 keyword3_box.grid(column=3, row=7, ipadx=5, pady=5, sticky=tk.W+tk.N)
 keyword3_box.current(0)
 
-city = citybox.get()  #輸入縣市
-destination = entrydestination.get()  #輸入更小範圍
-restnum = int(restnumbox.get())  #輸入想要的店家數量
-restkind = restkindbox.get()  #輸入餐廳種類 (咖啡廳、餐廳...)
-foodkind = entryfoodkind.get()  #輸入食物種類
-day = daybox.get()  #輸入要去的星期
-time = timebox.get()  #輸入要去的時間點 格式:1830
+city = city_box.get()  #輸入縣市
+destination = destination_entry.get()  #輸入更小範圍
+restnum = int(restnum_box.get())  #輸入想要的店家數量
+restkind = restkind_box.get()  #輸入餐廳種類 (咖啡廳、餐廳...)
+foodkind = foodkind_entry.get()  #輸入食物種類
+day = day_box.get()  #輸入要去的星期
+time = int(hr_box.get()+min_box.get())   #輸入要去的時間點 格式:1830
 keyword1 = keyword1box.get()  #輸入關鍵字
 keyword2 = keyword2box.get()
 keyword3 = keyword3box.get()
@@ -88,13 +84,7 @@ def createNewWindow():
     result = '您的最佳選擇：{}'.format(answer_str)
     result_label = tk.Label(newWindow, text = result)
     result_label.pack()
-'''
-answer_str = ''
-for i in range(restnum - 1):
-    answer_str += answer[i]
-    answer_str += '、'
-answer_str += answer[restnum - 1]
-'''
+
 result_Button = tk.Button(app, text = '查看結果！', command = createNewWindow, fg = '#8592A2', width=10)
 result_Button.grid(column=1, row=10, pady=10, sticky=tk.W+tk.S)
 
