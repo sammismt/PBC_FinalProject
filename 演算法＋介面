@@ -88,13 +88,13 @@ def createNewWindow():
     result = '您的最佳選擇：{}'.format(answer_str)
     result_label = tk.Label(newWindow, text = result)
     result_label.pack()
-
+'''
 answer_str = ''
 for i in range(restnum - 1):
     answer_str += answer[i]
     answer_str += '、'
 answer_str += answer[restnum - 1]
-
+'''
 result_Button = tk.Button(app, text = '查看結果！', command = createNewWindow, fg = '#8592A2', width=10)
 result_Button.grid(column=1, row=10, pady=10, sticky=tk.W+tk.S)
 
@@ -216,3 +216,9 @@ for x in range(restnum):
     add_index = rating_record.index(rate_index_sorted[])
     answer.append(final_result[add_index]["name"])
     rating_record[add_index] = 0
+    
+answer_str = ''
+for i in range(restnum - 1):
+    answer_str += answer[i]
+    answer_str += '、'
+answer_str += answer[restnum - 1]
