@@ -458,11 +458,29 @@ def algorithm(final_result):
     rate_index_sorted = sorted(rating_record, reverse = True)
     
     output_index_list = []
-    for x in range(restnum):
-        add_index = rating_record.index(rate_index_sorted[x])
-        answer.append(final_result[add_index]["name"])
-        rating_record[add_index] = 0
-        output_index_list.append(add_index)
+    onlyrest = len(rate_index_sorted) - (rate_index_sorted.count(-1))
+    
+    if rate_index_sorted.count(-1) == len(rate_index_sorted):
+        
+        answer.append("無符合店家")
+    
+    elif onlyrest < restnum:
+        
+        for x in range(onlyrest):
+            add_index = rating_record.index(rate_index_sorted[x])
+            answer.append(final_result[add_index]["name"])
+            rating_record[add_index] = 0
+            output_index_list.append(add_index)
+        for y in range(restnum - onlyrest):
+            answer.append("無其他符合店家")
+
+    elif onlyrest >= restnum:
+        
+        for x in range(onlyrest):
+            add_index = rating_record.index(rate_index_sorted[x])
+            answer.append(final_result[add_index]["name"])
+            rating_record[add_index] = 0
+            output_index_list.append(add_index)
     
     output_list = [answer, output_index_list]
     
