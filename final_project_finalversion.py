@@ -566,9 +566,10 @@ def search_by_selenium():
         answer_str += answer[i]
         answer_str += '、'
     answer_str += answer[restnum - 1]
-    newWindow = tk.Toplevel(app)
+    newwindow = tk.Toplevel(app)
+    result_Button = tk.Button(newwindow, text = '查詢！', fg = '#8592A2', width=10)
     result = '您的最佳選擇：{}'.format(answer_str)
-    result_label = tk.Label(newWindow, text = result)
+    result_label = tk.Label(newwindow, text = result)
     result_label.pack()
     
     # 把挑選的店家的網頁開啟
