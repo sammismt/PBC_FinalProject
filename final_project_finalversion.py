@@ -567,7 +567,7 @@ def search_by_selenium():
         answer_str += '、'
     answer_str += answer[restnum - 1]
     newwindow = tk.Toplevel(app)
-    result_Button = tk.Button(newwindow, text = '查詢！', fg = '#8592A2', width=10)
+    search_Button = tk.Button(newwindow, text = '查詢！', fg = '#8592A2', width=10)
     result = '您的最佳選擇：{}'.format(answer_str)
     result_label = tk.Label(newwindow, text = result)
     result_label.pack()
