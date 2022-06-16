@@ -147,31 +147,31 @@ class WebDriver:
             for weekday in weekday_order:
                 weekday_order_tidy.append(weekday.text.strip()[:3])
 
-            Monday_index = weekday_order_tidy.index("星期一")
-            Tuesday_index = weekday_order_tidy.index("星期二")
-            Wednesday_index = weekday_order_tidy.index("星期三")
-            Thursday_index = weekday_order_tidy.index("星期四")
-            Friday_index = weekday_order_tidy.index("星期五")
-            Saturday_index = weekday_order_tidy.index("星期六")
-            Sunday_index = weekday_order_tidy.index("星期日")
+            monday_index = weekday_order_tidy.index("星期一")
+            tuesday_index = weekday_order_tidy.index("星期二")
+            wednesday_index = weekday_order_tidy.index("星期三")
+            thursday_index = weekday_order_tidy.index("星期四")
+            friday_index = weekday_order_tidy.index("星期五")
+            saturday_index = weekday_order_tidy.index("星期六")
+            sunday_index = weekday_order_tidy.index("星期日")
 
-            if all_time_tidy[Monday_index][:7] != "24 小時營業":
-                if len(all_time_tidy[Monday_index]) == 28:
+            if all_time_tidy[monday_index][:7] != "24 小時營業":
+                if len(all_time_tidy[monday_index]) == 28:
                     Monday = ''
-                    Monday = all_time_tidy[Monday_index][:11]
+                    Monday = all_time_tidy[monday_index][:11]
                     self.location_data["opentime"][0][1] = Monday[:2] \
                         + Monday[3:5]
                     self.location_data["opentime"][0][2] = Monday[6:8] \
                         + Monday[9:11]
-                elif len(all_time_tidy[Monday_index]) >= 39:
+                elif len(all_time_tidy[monday_index]) >= 39:
                     Monday1 = ''
-                    Monday1 = all_time_tidy[Monday_index][:11]
+                    Monday1 = all_time_tidy[monday_index][:11]
                     self.location_data["opentime"][0][1] = Monday1[:2] \
                         + Monday1[3:5]
                     self.location_data["opentime"][0][3] = Monday1[6:8] \
                         + Monday1[9:11]
                     Monday2 = ''
-                    Monday2 = all_time_tidy[Monday_index][11:22]
+                    Monday2 = all_time_tidy[monday_index][11:22]
                     self.location_data["opentime"][0][2] = Monday2[:2] \
                         + Monday2[3:5]
                     self.location_data["opentime"][0][4] = Monday2[6:8] \
@@ -182,23 +182,23 @@ class WebDriver:
                 self.location_data["opentime"][0][1] = "0000"
                 self.location_data["opentime"][0][2] = "2400"
 
-            if all_time_tidy[Tuesday_index][:7] != "24 小時營業":
-                if len(all_time_tidy[Tuesday_index]) == 28:
+            if all_time_tidy[tuesday_index][:7] != "24 小時營業":
+                if len(all_time_tidy[tuesday_index]) == 28:
                     Tuesday = ''
-                    Tuesday = all_time_tidy[Tuesday_index][:11]
+                    Tuesday = all_time_tidy[tuesday_index][:11]
                     self.location_data["opentime"][1][1] = Tuesday[:2] \
                         + Tuesday[3:5]
                     self.location_data["opentime"][1][2] = Tuesday[6:8] \
                         + Tuesday[9:11]
-                elif len(all_time_tidy[Tuesday_index]) >= 39:
+                elif len(all_time_tidy[tuesday_index]) >= 39:
                     Tuesday1 = ''
-                    Tuesday1 = all_time_tidy[Tuesday_index][:11]
+                    Tuesday1 = all_time_tidy[tuesday_index][:11]
                     self.location_data["opentime"][1][1] = Tuesday1[:2] \
                         + Tuesday1[3:5]
                     self.location_data["opentime"][1][3] = Tuesday1[6:8] \
                         + Tuesday1[9:11]
                     Tuesday2 = ''
-                    Tuesday2 = all_time_tidy[Tuesday_index][11:22]
+                    Tuesday2 = all_time_tidy[tuesday_index][11:22]
                     self.location_data["opentime"][1][2] = Tuesday2[:2] \
                         + Tuesday2[3:5]
                     self.location_data["opentime"][1][4] = Tuesday2[6:8] \
@@ -209,23 +209,23 @@ class WebDriver:
                 self.location_data["opentime"][1][1] = "0000"
                 self.location_data["opentime"][1][2] = "2400"
 
-            if all_time_tidy[Wednesday_index][:7] != "24 小時營業":
-                if len(all_time_tidy[Wednesday_index]) == 28:
+            if all_time_tidy[wednesday_index][:7] != "24 小時營業":
+                if len(all_time_tidy[wednesday_index]) == 28:
                     Wednesday = ''
-                    Wednesday = all_time_tidy[Wednesday_index][:11]
+                    Wednesday = all_time_tidy[wednesday_index][:11]
                     self.location_data["opentime"][2][1] = Wednesday[:2] \
                         + Wednesday[3:5]
                     self.location_data["opentime"][2][2] = Wednesday[6:8] \
                         + Wednesday[9:11]
-                elif len(all_time_tidy[Wednesday_index]) >= 39:
+                elif len(all_time_tidy[wednesday_index]) >= 39:
                     Wednesday1 = ''
-                    Wednesday1 = all_time_tidy[Wednesday_index][:11]
+                    Wednesday1 = all_time_tidy[wednesday_index][:11]
                     self.location_data["opentime"][2][1] = Wednesday1[:2] \
                         + Wednesday1[3:5]
                     self.location_data["opentime"][2][3] = Wednesday1[6:8] \
                         + Wednesday1[9:11]
                     Wednesday2 = ''
-                    Wednesday2 = all_time_tidy[Wednesday_index][11:22]
+                    Wednesday2 = all_time_tidy[wednesday_index][11:22]
                     self.location_data["opentime"][2][2] = Wednesday2[:2] \
                         + Wednesday2[3:5]
                     self.location_data["opentime"][2][4] = Wednesday2[6:8] \
@@ -236,23 +236,23 @@ class WebDriver:
                 self.location_data["opentime"][2][1] = "0000"
                 self.location_data["opentime"][2][2] = "2400"
 
-            if all_time_tidy[Thursday_index][:7] != "24 小時營業":
-                if len(all_time_tidy[Thursday_index]) == 28:
+            if all_time_tidy[thursday_index][:7] != "24 小時營業":
+                if len(all_time_tidy[thursday_index]) == 28:
                     Thursday = ''
-                    Thursday = all_time_tidy[Thursday_index][:11]
+                    Thursday = all_time_tidy[thursday_index][:11]
                     self.location_data["opentime"][3][1] = Thursday[:2] \
                         + Thursday[3:5]
                     self.location_data["opentime"][3][2] = Thursday[6:8] \
                         + Thursday[9:11]
-                elif len(all_time_tidy[Thursday_index]) >= 39:
+                elif len(all_time_tidy[thursday_index]) >= 39:
                     Thursday1 = ''
-                    Thursday1 = all_time_tidy[Thursday_index][:11]
+                    Thursday1 = all_time_tidy[thursday_index][:11]
                     self.location_data["opentime"][3][1] = Thursday1[:2] \
                         + Thursday1[3:5]
                     self.location_data["opentime"][3][3] = Thursday1[6:8] \
                         + Thursday1[9:11]
                     Thursday2 = ''
-                    Thursday2 = all_time_tidy[Thursday_index][11:22]
+                    Thursday2 = all_time_tidy[thursday_index][11:22]
                     self.location_data["opentime"][3][2] = Thursday2[:2] \
                         + Thursday2[3:5]
                     self.location_data["opentime"][3][4] = Thursday2[6:8] \
@@ -263,23 +263,23 @@ class WebDriver:
                 self.location_data["opentime"][3][1] = "0000"
                 self.location_data["opentime"][3][2] = "2400"
 
-            if all_time_tidy[Friday_index][:7] != "24 小時營業":
-                if len(all_time_tidy[Friday_index]) == 28:
+            if all_time_tidy[friday_index][:7] != "24 小時營業":
+                if len(all_time_tidy[friday_index]) == 28:
                     Friday = ''
-                    Friday = all_time_tidy[Friday_index][:11]
+                    Friday = all_time_tidy[friday_index][:11]
                     self.location_data["opentime"][4][1] = Friday[:2] \
                         + Friday[3:5]
                     self.location_data["opentime"][4][2] = Friday[6:8] \
                         + Friday[9:11]
-                elif len(all_time_tidy[Friday_index]) >= 39:
+                elif len(all_time_tidy[friday_index]) >= 39:
                     Friday1 = ''
-                    Friday1 = all_time_tidy[Friday_index][:11]
+                    Friday1 = all_time_tidy[friday_index][:11]
                     self.location_data["opentime"][4][1] = Friday1[:2] \
                         + Friday1[3:5]
                     self.location_data["opentime"][4][3] = Friday1[6:8] \
                         + Friday1[9:11]
                     Friday2 = ''
-                    Friday2 = all_time_tidy[Friday_index][11:22]
+                    Friday2 = all_time_tidy[friday_index][11:22]
                     self.location_data["opentime"][4][2] = Friday2[:2] \
                         + Friday2[3:5]
                     self.location_data["opentime"][4][4] = Friday2[6:8] \
@@ -290,23 +290,23 @@ class WebDriver:
                 self.location_data["opentime"][4][1] = "0000"
                 self.location_data["opentime"][4][2] = "2400"
 
-            if all_time_tidy[Saturday_index][:7] != "24 小時營業":
-                if len(all_time_tidy[Saturday_index]) == 28:
+            if all_time_tidy[saturday_index][:7] != "24 小時營業":
+                if len(all_time_tidy[saturday_index]) == 28:
                     Saturday = ''
-                    Saturday = all_time_tidy[Saturday_index][:11]
+                    Saturday = all_time_tidy[saturday_index][:11]
                     self.location_data["opentime"][5][1] = Saturday[:2] \
                         + Saturday[3:5]
                     self.location_data["opentime"][5][2] = Saturday[6:8] \
                         + Saturday[9:11]
-                elif len(all_time_tidy[Saturday_index]) >= 39:
+                elif len(all_time_tidy[saturday_index]) >= 39:
                     Saturday1 = ''
-                    Saturday1 = all_time_tidy[Saturday_index][:11]
+                    Saturday1 = all_time_tidy[saturday_index][:11]
                     self.location_data["opentime"][5][1] = Saturday1[:2] \
                         + Saturday1[3:5]
                     self.location_data["opentime"][5][3] = Saturday1[6:8] \
                         + Saturday1[9:11]
                     Saturday2 = ''
-                    Saturday2 = all_time_tidy[Saturday_index][11:22]
+                    Saturday2 = all_time_tidy[saturday_index][11:22]
                     self.location_data["opentime"][5][2] = Saturday2[:2] \
                         + Saturday2[3:5]
                     self.location_data["opentime"][5][4] = Saturday2[6:8] \
@@ -317,20 +317,20 @@ class WebDriver:
                 self.location_data["opentime"][5][1] = "0000"
                 self.location_data["opentime"][5][2] = "2400"
 
-            if all_time_tidy[Sunday_index][:7] != "24 小時營業":
-                if len(all_time_tidy[Sunday_index]) == 28:
-                    Sunday = all_time_tidy[Sunday_index][:11]
+            if all_time_tidy[sunday_index][:7] != "24 小時營業":
+                if len(all_time_tidy[sunday_index]) == 28:
+                    Sunday = all_time_tidy[sunday_index][:11]
                     self.location_data["opentime"][6][1] = Sunday[:2] \
                         + Sunday[3:5]
                     self.location_data["opentime"][6][2] = Sunday[6:8] \
                         + Sunday[9:11]
-                elif len(all_time_tidy[Sunday_index]) >= 39:
-                    Sunday1 = all_time_tidy[Sunday_index][:11]
+                elif len(all_time_tidy[sunday_index]) >= 39:
+                    Sunday1 = all_time_tidy[sunday_index][:11]
                     self.location_data["opentime"][6][1] = Sunday1[:2] \
                         + Sunday1[3:5]
                     self.location_data["opentime"][6][3] = Sunday1[6:8] \
                         + Sunday1[9:11]
-                    Sunday2 = all_time_tidy[Sunday_index][11:22]
+                    Sunday2 = all_time_tidy[sunday_index][11:22]
                     self.location_data["opentime"][6][2] = Sunday2[:2] \
                         + Sunday2[3:5]
                     self.location_data["opentime"][6][4] = Sunday2[6:8] \
